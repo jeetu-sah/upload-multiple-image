@@ -1,15 +1,12 @@
 <?php
   $target_dir = "uploads/";
-  
   if(isset($_POST['imageArrCount'])){
-	  if(!empty($_POST['imageArrCount'])){
-		  $countArr = $_POST['imageArrCount'];
+	  if(empty($_POST['imageArrCount'])){
+		  $mainArr = array();
 		}
-	   else{
-		  $images_arr = array();
-		}	
 	}
   
+   $images_arr = array();
   //echo "";
   //print_r($_POST['images_arr']);exit;	
 	
@@ -30,8 +27,10 @@
             if(move_uploaded_file($_FILES['files']['tmp_name'][$key] , $targetFilePath)){
                 $images_arr[] = $targetFilePath;
             }
+	    		
     }
 	
+	   array_push($mainArr ,$images_arr);
 	/*
 	$html = '<ul>';
 	if(count($images_arr) > 0){
@@ -40,7 +39,7 @@
 		}
 	  }
 	$html += '</ul>';  */
-	echo json_encode(array("arr"=>$images_arr , 'countImageArr'=>count($images_arr) , "imageArrValue"=>$images_arr));exit;
+	echo json_encode(array("arr"=>$mainArr , 'countImageArr'=>count($mainArr) , "imageArrValue"=>$mainArr));exit;
 	
 	/*
 	if(!empty($images_arr)){

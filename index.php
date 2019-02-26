@@ -26,6 +26,7 @@
     <div id="result22"></div>
     <div id="result22"></div>
     <div id="response"></div>
+    <div id="imageArrValue"></div>
   </div>
 </div>
 <script>
@@ -76,6 +77,7 @@ $(document).ready(function(e) {
 		       html_content += '</ul>'; 
 		   $("#response").html(html_content);
 		   $("#imageArrCount").val(parseJson.countImageArr);
+		   $("imageArrValue").val(parseJson.imageArrValue);
 		}
      });
  });   
