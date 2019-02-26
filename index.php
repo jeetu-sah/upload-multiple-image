@@ -15,6 +15,7 @@
     <form id="form_post">
       <div class="form-group">
             <input type="file" name="files[]" id="images" class="form-control" multiple />
+            <input type="text" name="imageArrCount" id="imageArrCount" value="" />
         </form>
       </div>
       </form>
@@ -30,8 +31,10 @@
 <script>
 $(document).ready(function(e) {
  $(document).on('change','#images',function(){
+	$("#response").html(" ");
 	var form_data = new FormData(); 
-	
+	var imageArrCount = $("#imageArrCount").val();
+	form_data.append('imageArrCount' , imageArrCount);
 	var i = 0;
 	//var files = [];
 	var err = '';
@@ -53,6 +56,7 @@ $(document).ready(function(e) {
         url: 'demo.php', // point to server-side PHP script 
 		data: form_data ,                         
         type: 'post',
+		//dataType:"JSON",
         cache: false,
         contentType: false,
         processData: false,
@@ -60,13 +64,24 @@ $(document).ready(function(e) {
 		  $("#result22").html("uploading ...");
 		},
         success: function(data){
-           // alert(php_script_response); // display response from the PHP script, if any
-          $("#response").html(data);
+          var parseJson = jQuery.parseJSON(data);
+		   console.log(parseJson);
+		   //$("#response").html(data);
+		  
+		   var html_content = '';
+		       html_content += '<ul>';
+			   $.each(parseJson.arr , function(index , value){
+				   html_content += '<li><img src="'+value+'" style="height:100px; width:100px;"></li>';
+			   });
+		       html_content += '</ul>'; 
+		   $("#response").html(html_content);
+		   $("#imageArrCount").val(parseJson.countImageArr);
 		}
      });
  });   
 });
    
 </script>
+
 </body>
 </html>

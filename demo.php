@@ -1,8 +1,13 @@
 <?php
   $target_dir = "uploads/";
   
-  if(count($_POST['images_arr']) < 0){
-	  $images_arr = array();
+  if(isset($_POST['imageArrCount'])){
+	  if(!empty($_POST['imageArrCount'])){
+		  $countArr = $_POST['imageArrCount'];
+		}
+	   else{
+		  $images_arr = array();
+		}	
 	}
   
   //echo "";
@@ -27,13 +32,25 @@
             }
     }
 	
+	/*
+	$html = '<ul>';
+	if(count($images_arr) > 0){
+	    foreach($images_arr as $image_src){
+		  $html += "<li><img src='".$image_src."' style='height:100px; width:100px;'></li>";
+		}
+	  }
+	$html += '</ul>';  */
+	echo json_encode(array("arr"=>$images_arr , 'countImageArr'=>count($images_arr) , "imageArrValue"=>$images_arr));exit;
+	
+	/*
 	if(!empty($images_arr)){
 	    ?>
         <input type="text" name="images_arr" id="images_arr" value="<?php print_r($images_arr) ?>" />
         <ul>
         <?php foreach($images_arr as $image_src){ ?>
-            <li><img src="<?php echo $image_src; ?>" style="height:100px; width:100px;"></li>
+           
         <?php } ?>
         </ul>
     <?php }
+	*/
  	?>
