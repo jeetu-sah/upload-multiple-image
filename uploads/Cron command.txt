@@ -1,0 +1,3 @@
+/usr/local/bin/php /home/kanpurize/public_html/artisan notify:email 1>> /dev/null 2>&1
+
+/usr/local/bin/php /home/kanpurize/public_html/artisan notify:newuser 1>> /dev/null 2>&1
